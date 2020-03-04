@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BiTGApps</string>
+
+    <string name="telegram">Telegram</string>
+    <string name="join_global_discussion_of_lkt">Join global discussion of BiTGApps, help us with the improvements, bug fixes and give your suggestions</string>
+    <string name="forum">Forum</string>
+    <string name="official_forum_discussion">Check out BiTGApps official forum discussion</string>
+    <string name="github">GitHub</string>
+    <string name="official_github">Official GitHub repository</string>
+</resources>
