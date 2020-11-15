@@ -1,6 +1,8 @@
 package com.paget96.bitgapps;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +17,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView gappsPackage, platform, sdk, version, buildDate, buildId, developer;
     private MaterialCardView xda, telegram, gitHub;
     private MaterialButton getBitGapps, exitApp;
+    private LinearLayout versionInfo, notInstalledLayoutHolder;
 
     private void initializeViews() {
+        versionInfo = findViewById(R.id.version_info);
+        notInstalledLayoutHolder = findViewById(R.id.not_installed_layout_holder);
         gappsPackage = findViewById(R.id.gapps_package);
         platform = findViewById(R.id.platform);
         sdk = findViewById(R.id.sdk);
@@ -33,13 +38,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getText() {
-        gappsPackage.setText(String.format("Gapps package: %s", utils.splitString(getLineContent(1), "=", 1)));
-        platform.setText(String.format("Platform: %s", utils.splitString(getLineContent(2), "=", 1)));
-        sdk.setText(String.format("SDK: %s", utils.splitString(getLineContent(3), "=", 1)));
-        version.setText(String.format("Version: %s", utils.splitString(getLineContent(4), "=", 1)));
-        buildDate.setText(String.format("Build date: %s", utils.splitString(getLineContent(5), "=", 1)));
-        buildId.setText(String.format("Build ID: %s", utils.splitString(getLineContent(6), "=", 1)));
-        developer.setText(String.format("Developer: %s", utils.splitString(getLineContent(7), "=", 1)));
+        if (utils.fileExists("/system/etc/g.prop", true)) {
+            versionInfo.setVisibility(View.VISIBLE);
+            notInstalledLayoutHolder.setVisibility(View.GONE);
+            gappsPackage.setText(String.format("Gapps package: %s", utils.splitString(getLineContent(1), "=", 1)));
+            platform.setText(String.format("Platform: %s", utils.splitString(getLineContent(2), "=", 1)));
+            sdk.setText(String.format("SDK: %s", utils.splitString(getLineContent(3), "=", 1)));
+            version.setText(String.format("Version: %s", utils.splitString(getLineContent(4), "=", 1)));
+            buildDate.setText(String.format("Build date: %s", utils.splitString(getLineContent(5), "=", 1)));
+            buildId.setText(String.format("Build ID: %s", utils.splitString(getLineContent(6), "=", 1)));
+            developer.setText(String.format("Developer: %s", utils.splitString(getLineContent(7), "=", 1)));
+        } else {
+            versionInfo.setVisibility(View.GONE);
+            notInstalledLayoutHolder.setVisibility(View.VISIBLE);
+        }
     }
 
     private void onClick() {

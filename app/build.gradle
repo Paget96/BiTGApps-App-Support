@@ -11,42 +11,42 @@ android {
         versionName "v1.1"
     }
 
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            lintOptions {
+                disable 'MissingTranslation'
+            }
         }
 
-        buildTypes {
-            release {
-                shrinkResources true
-                minifyEnabled true
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                lintOptions {
-                    disable 'MissingTranslation'
-                }
-            }
-
-            beta {
-                shrinkResources true
-                minifyEnabled true
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-                lintOptions {
-                    disable 'MissingTranslation'
-                }
+        beta {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            lintOptions {
+                disable 'MissingTranslation'
             }
         }
     }
+}
 
-    android.applicationVariants.all {
-        variant ->
-            variant.outputs.all {
-                def appName = "BiTGApps"
-                outputFileName = appName + "-${variant.versionName}.apk"
-            }
-    }
+android.applicationVariants.all {
+    variant ->
+        variant.outputs.all {
+            def appName = "BiTGApps"
+            outputFileName = appName + "-${variant.versionName}.apk"
+        }
+}
 
 
-    dependencies {
+dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Support lib dependencies
     implementation 'androidx.appcompat:appcompat:1.2.0'
