@@ -1,22 +1,20 @@
 package com.paget96.bitgapps;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.material.card.MaterialCardView;
-import com.topjohnwu.superuser.Shell;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.List;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 
 public class MainActivity extends AppCompatActivity {
 
     // Variables
-    private Utils utils = new Utils();
+    private final Utils utils = new Utils();
     private TextView gappsPackage, platform, sdk, version, buildDate, buildId, developer;
     private MaterialCardView xda, telegram, gitHub;
+    private MaterialButton getBitGapps, exitApp;
 
     private void initializeViews() {
         gappsPackage = findViewById(R.id.gapps_package);
@@ -27,22 +25,26 @@ public class MainActivity extends AppCompatActivity {
         buildId = findViewById(R.id.build_id);
         developer = findViewById(R.id.developer);
 
+        getBitGapps = findViewById(R.id.get_bitgapps);
+        exitApp = findViewById(R.id.exit);
         xda = findViewById(R.id.xda);
         telegram = findViewById(R.id.telegram);
         gitHub = findViewById(R.id.github);
     }
 
     private void getText() {
-        gappsPackage.setText("Gapps package: "+getLineContent(1).split("=")[1]);
-        platform.setText("Platform: "+getLineContent(2).split("=")[1]);
-        sdk.setText("SDK: "+getLineContent(3).split("=")[1]);
-        version.setText("Version: "+getLineContent(4).split("=")[1]);
-        buildDate.setText("Build date: "+getLineContent(5).split("=")[1]);
-        buildId.setText("Build ID: "+getLineContent(6).split("=")[1]);
-        developer.setText("Developer: "+getLineContent(7).split("=")[1]);
+        gappsPackage.setText(String.format("Gapps package: %s", utils.splitString(getLineContent(1), "=", 1)));
+        platform.setText(String.format("Platform: %s", utils.splitString(getLineContent(2), "=", 1)));
+        sdk.setText(String.format("SDK: %s", utils.splitString(getLineContent(3), "=", 1)));
+        version.setText(String.format("Version: %s", utils.splitString(getLineContent(4), "=", 1)));
+        buildDate.setText(String.format("Build date: %s", utils.splitString(getLineContent(5), "=", 1)));
+        buildId.setText(String.format("Build ID: %s", utils.splitString(getLineContent(6), "=", 1)));
+        developer.setText(String.format("Developer: %s", utils.splitString(getLineContent(7), "=", 1)));
     }
 
     private void onClick() {
+        getBitGapps.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://forum.xda-developers.com/android/software/custom-bitgapps-android-t4012165"));
+        exitApp.setOnClickListener(v -> finish());
         xda.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://forum.xda-developers.com/android/software/custom-bitgapps-android-t4012165"));
         telegram.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://t.me/bitgapps_official"));
         gitHub.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://github.com/BiTGApps"));
@@ -60,5 +62,11 @@ public class MainActivity extends AppCompatActivity {
 
     public String getLineContent(int line) {
         return utils.runCommand("cat /system/etc/g.prop | sed -n " + line + "p", true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        utils.closeShell();
     }
 }

@@ -3,14 +3,10 @@ package com.paget96.bitgapps;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.button.MaterialButton;
 import com.topjohnwu.superuser.Shell;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Utils {
@@ -18,10 +14,7 @@ public class Utils {
     public String runCommand(String command, boolean root) {
         List<String> output;
 
-        if (root)
-            output = Shell.su(command).exec().getOut();
-        else
-            output = Shell.sh(command).exec().getOut();
+        output = root ? Shell.su(command).exec().getOut() : Shell.sh(command).exec().getOut();
 
         StringBuilder sb = new StringBuilder();
         for (String s : output) {
@@ -29,6 +22,30 @@ public class Utils {
             sb.append("\n");
         }
         return sb.toString().trim();
+    }
+
+    public void closeShell() {
+        try {
+            Shell shell = Shell.getCachedShell();
+            if (shell != null)
+                shell.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean fileExists(String file, boolean root) {
+        String result =
+                runCommand("if [ -e " + file + " ]; then echo true; fi", root);
+        return (result != null && result.contains("true"));
+    }
+
+    public String splitString(String string, String regex, int element) {
+        try {
+            return string.split(regex)[element];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "";
+        }
     }
 
     // Parses and open links.
