@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.paget96.bitgapps.BuildConfig;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private void getText() {
         if (utils.fileExists("/system/etc/g.prop", true)) {
             infoCard.setCardBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.installed_bg_color));
-            gappsInstallState.setText("BitGapps installed");
+            gappsInstallState.setText("BiTGApps Installed");
             infoCard.setClickable(true);
             buttonHolder.setVisibility(View.GONE);
             expandArrow.setVisibility(View.VISIBLE);
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             developer.setText(String.format("Developer: %s", utils.splitString(getLineContent(7), "=", 1)));
         } else {
             infoCard.setCardBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.not_installed_bg_color));
-            gappsInstallState.setText("BitGapps not installed");
+            gappsInstallState.setText("BiTGApps Not Installed");
             infoCard.setClickable(false);
             buttonHolder.setVisibility(View.VISIBLE);
             expandArrow.setVisibility(View.GONE);

@@ -48,7 +48,7 @@
                         android:layout_marginEnd="8dp"
                         android:gravity="center"
                         android:maxLines="1"
-                        android:text="BitGapps not installed"
+                        android:text="BiTGApps Not Installed"
                         android:textStyle="bold"
                         app:autoSizeTextType="uniform" />
 
@@ -406,7 +406,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Gapps dev" />
+                            android:text="BiTGApps Developer" />
                     </LinearLayout>
 
                     <LinearLayout
