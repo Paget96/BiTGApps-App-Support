@@ -3,6 +3,8 @@ package com.paget96.bitgapps;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.AndroidRuntimeException;
+import android.view.View;
 
 import com.topjohnwu.superuser.Shell;
 
@@ -44,7 +46,7 @@ public class Utils {
         try {
             return string.split(regex)[element];
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "";
+            return "--";
         }
     }
 
@@ -53,5 +55,31 @@ public class Utils {
         Uri uri = Uri.parse(link);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         context.startActivity(intent);
+    }
+
+    public void expandView(View expandedLayout, View animateArrow) {
+        try {
+            animateArrow.animate().rotation(180).setDuration(500).start();
+        } catch (AndroidRuntimeException are) {
+            are.printStackTrace();
+        }
+        expandedLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void collapseView(View expandedLayout, View animateArrow) {
+        try {
+            animateArrow.animate().rotation(0).setDuration(500).start();
+        } catch (AndroidRuntimeException are) {
+            are.printStackTrace();
+        }
+        expandedLayout.setVisibility(View.GONE);
+    }
+
+    public void expandCollapseView(View expandedLayout, View animateArrow) {
+        if (expandedLayout.isShown()) {
+            collapseView(expandedLayout, animateArrow);
+        } else {
+            expandView(expandedLayout, animateArrow);
+        }
     }
 }

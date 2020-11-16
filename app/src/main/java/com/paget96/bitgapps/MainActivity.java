@@ -2,6 +2,7 @@ package com.paget96.bitgapps;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,14 +15,19 @@ public class MainActivity extends AppCompatActivity {
 
     // Variables
     private final Utils utils = new Utils();
-    private TextView gappsPackage, platform, sdk, version, buildDate, buildId, developer;
+    private TextView gappsInstallState, gappsPackage, platform, sdk, version, buildDate, buildId, developer;
     private MaterialCardView xda, telegram, gitHub;
+    private ImageView expandArrow;
     private MaterialButton getBitGapps, exitApp;
-    private LinearLayout versionInfo, notInstalledLayoutHolder;
+    private LinearLayout buttonHolder, mainLayoutHolder, moreInfo;
 
     private void initializeViews() {
-        versionInfo = findViewById(R.id.version_info);
-        notInstalledLayoutHolder = findViewById(R.id.not_installed_layout_holder);
+        mainLayoutHolder = findViewById(R.id.main_layout_holder);
+        gappsInstallState = findViewById(R.id.gapps_install_state);
+        buttonHolder = findViewById(R.id.button_holder);
+        expandArrow = findViewById(R.id.expand_arrow);
+        moreInfo = findViewById(R.id.more_info);
+
         gappsPackage = findViewById(R.id.gapps_package);
         platform = findViewById(R.id.platform);
         sdk = findViewById(R.id.sdk);
@@ -39,22 +45,30 @@ public class MainActivity extends AppCompatActivity {
 
     private void getText() {
         if (utils.fileExists("/system/etc/g.prop", true)) {
-            versionInfo.setVisibility(View.VISIBLE);
-            notInstalledLayoutHolder.setVisibility(View.GONE);
-            gappsPackage.setText(String.format("Gapps package: %s", utils.splitString(getLineContent(1), "=", 1)));
+            gappsInstallState.setText("BitGapps installed");
+            mainLayoutHolder.setClickable(true);
+            buttonHolder.setVisibility(View.GONE);
+            expandArrow.setVisibility(View.VISIBLE);
+
+            gappsPackage.setText(utils.splitString(getLineContent(1), "=", 1));
+            version.setText(utils.splitString(getLineContent(4), "=", 1));
+
             platform.setText(String.format("Platform: %s", utils.splitString(getLineContent(2), "=", 1)));
             sdk.setText(String.format("SDK: %s", utils.splitString(getLineContent(3), "=", 1)));
-            version.setText(String.format("Version: %s", utils.splitString(getLineContent(4), "=", 1)));
             buildDate.setText(String.format("Build date: %s", utils.splitString(getLineContent(5), "=", 1)));
             buildId.setText(String.format("Build ID: %s", utils.splitString(getLineContent(6), "=", 1)));
             developer.setText(String.format("Developer: %s", utils.splitString(getLineContent(7), "=", 1)));
         } else {
-            versionInfo.setVisibility(View.GONE);
-            notInstalledLayoutHolder.setVisibility(View.VISIBLE);
+            gappsInstallState.setText("BitGapps not installed");
+            mainLayoutHolder.setClickable(false);
+            buttonHolder.setVisibility(View.VISIBLE);
+            expandArrow.setVisibility(View.GONE);
+            moreInfo.setVisibility(View.GONE);
         }
     }
 
     private void onClick() {
+        mainLayoutHolder.setOnClickListener(v -> utils.expandCollapseView(moreInfo, expandArrow));
         getBitGapps.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://bitgapps.github.io"));
         exitApp.setOnClickListener(v -> finish());
         xda.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://forum.xda-developers.com/android/software/custom-bitgapps-android-t4012165"));
