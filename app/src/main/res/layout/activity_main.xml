@@ -398,7 +398,6 @@
                             android:paddingBottom="10dp">
 
                             <View style="@style/Divider" />
-
                         </LinearLayout>
 
                         <TextView
@@ -406,6 +405,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:textStyle="bold"
                             android:text="BiTGApps Developer" />
                     </LinearLayout>
 
@@ -447,7 +447,6 @@
                             android:paddingBottom="10dp">
 
                             <View style="@style/Divider" />
-
                         </LinearLayout>
 
                         <TextView
@@ -455,16 +454,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="App developer" />
+                            android:text="App Developer"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
-
                 </LinearLayout>
-
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
-
     </FrameLayout>
-
 </FrameLayout>
