@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getText() {
-        if (utils.fileExists("/system/etc/g.prop", true)) {
+        if (utils.fileExists("/system/etc/g.prop", false)) {
             infoCard.setCardBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.installed_bg_color));
             gappsInstallState.setText("BiTGApps Installed");
             infoCard.setClickable(true);
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getLineContent(int line) {
-        return utils.runCommand("cat /system/etc/g.prop | sed -n " + line + "p", true);
+        return utils.runCommand("cat /system/etc/g.prop | sed -n " + line + "p", false);
     }
 
     @Override

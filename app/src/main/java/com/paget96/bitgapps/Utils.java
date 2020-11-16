@@ -13,6 +13,17 @@ import java.util.List;
 
 public class Utils {
 
+    static {
+        /* Shell.Config methods shall be called before any shell is created
+         * This is the why in this example we call it in a static block
+         * The followings are some examples, check Javadoc for more details */
+        Shell.enableVerboseLogging = BuildConfig.DEBUG;
+        Shell.setDefaultBuilder(Shell.Builder.create()
+                .setFlags(Shell.NON_ROOT_SHELL)
+                .setFlags(Shell.FLAG_NON_ROOT_SHELL)
+                .setTimeout(10));
+    }
+
     public String runCommand(String command, boolean root) {
         List<String> output;
 
