@@ -41,7 +41,7 @@ android.applicationVariants.all {
     variant ->
         variant.outputs.all {
             def appName = "BiTGApps"
-            outputFileName = appName + "-${variant.versionName}.apk"
+            outputFileName = appName + "-v${variant.versionName}.apk"
         }
 }
 
