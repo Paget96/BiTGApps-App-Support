@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onClick() {
-        getBitGapps.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://forum.xda-developers.com/android/software/custom-bitgapps-android-t4012165"));
+        getBitGapps.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://bitgapps.github.io"));
         exitApp.setOnClickListener(v -> finish());
         xda.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://forum.xda-developers.com/android/software/custom-bitgapps-android-t4012165"));
         telegram.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://t.me/bitgapps_official"));
