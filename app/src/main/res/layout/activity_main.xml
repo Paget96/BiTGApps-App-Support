@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <androidx.core.widget.NestedScrollView
@@ -17,29 +16,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="8dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="16dp"
+                android:src="@drawable/ic_info" />
+
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/info_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="32dp"
-                android:clickable="true"
-                android:focusable="true">
+                android:layout_marginTop="12dp">
 
                 <LinearLayout
-                    android:id="@+id/main_layout_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
                     android:gravity="center"
-                    android:padding="8dp"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/gapps_install_state"
                         android:layout_width="256dp"
                         android:layout_height="64dp"
-                        android:gravity="center"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
+                        android:gravity="center"
                         android:maxLines="1"
                         android:text="BitGapps not installed"
                         android:textStyle="bold"
@@ -123,27 +130,30 @@
                             android:id="@+id/get_bitgapps"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_margin="4dp"
-                                android:text="Get BitGapps" />
+                            android:layout_weight="1"
+                            android:text="Download" />
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/exit"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="4dp"
-                                android:layout_weight="1"
-                                android:text="Exit" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/exit"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layout_weight="1"
+                            android:text="Exit" />
 
-                        </LinearLayout>
                     </LinearLayout>
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                style="@style/DividerText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Social" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="32dp"
+                android:text="Social"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/xda"
@@ -222,7 +232,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/join_global_discussion_of_lkt" />
+                            android:text="@string/join_global_discussion_of_bitgapps" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -270,4 +280,191 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/about_gapps"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/semitrans"
+        android:visibility="gone">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            app:cardElevation="12dp">
+
+            <LinearLayout
+                android:layout_width="278dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_launcher_round" />
+
+                    <TextView
+                        style="@style/DividerText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/app_name" />
+
+                    <TextView
+                        android:id="@+id/app_version"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingBottom="0dp"
+                        android:text="--" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="0dp"
+                        android:text="@string/app_package" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="10dp">
+
+                    <View style="@style/Divider" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/DividerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Credits"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/the_hitman"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/the_hitman" />
+
+                        <TextView
+                            style="@style/DividerText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="TheHitMan" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="TheHitMan" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="10dp">
+
+                            <View style="@style/Divider" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/SummaryText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Gapps dev" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/paget96"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/paget96" />
+
+                        <TextView
+                            style="@style/DividerText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Paget96" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Danijel Markov" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="10dp">
+
+                            <View style="@style/Divider" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/SummaryText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="App developer" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+</FrameLayout>

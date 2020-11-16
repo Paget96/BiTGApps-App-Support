@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="materialCardViewStyle">@style/MaterialCard.Light</item>
         <item name="materialButtonStyle">@style/MaterialButton.Light</item>
+        <item name="android:windowBackground">@color/background_color</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/background_color</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -45,8 +49,19 @@
         <item name="android:paddingBottom">10dp</item>
     </style>
 
+    <style name="SummaryText">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="AppTheme.Transparent" parent="@style/AppTheme.NoActionBar">
         <item name="android:statusBarColor">@color/semitrans</item>
+    </style>
+
+    <!-- Divider/separator -->
+    <style name="Divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
 
 </resources>
