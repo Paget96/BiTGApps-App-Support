@@ -199,11 +199,16 @@ class MainActivity : AppCompatActivity() {
                             binding?.apply {
                                 layoutNoGappsUpdate.root.visibility = View.GONE
                                 layoutGappsUpdate.root.visibility = View.VISIBLE
-                                layoutGappsUpdate.bitgappsRelease.text = utils.splitString(buildId, "=", 1)
+                                layoutGappsUpdate.bitgappsRelease.text =
+                                    utils.splitString(buildId, "=", 1)
                                 layoutGappsUpdate.changelog.text = changelog
 
                                 layoutGappsUpdate.root.setOnClickListener {
-                                    utils.expandCollapseView(constraintInsideScroll, layoutGappsUpdate.showMoreUpdateInfo, null)
+                                    utils.expandCollapseView(
+                                        constraintInsideScroll,
+                                        layoutGappsUpdate.showMoreUpdateInfo,
+                                        null
+                                    )
                                 }
 
                                 layoutGappsUpdate.downloadUpdate.setOnClickListener {
