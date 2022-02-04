@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkForUpdate() {
-        if (!isBitGappsInstalled)
+        if (isBitGappsInstalled)
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     var buildId = ""
