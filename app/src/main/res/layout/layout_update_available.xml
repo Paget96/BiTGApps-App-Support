@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawablePadding="8dp"
-        android:text="Update available"
+        android:text="Update Available"
         android:textSize="24sp"
         android:textStyle="bold"
         app:drawableStartCompat="@drawable/ic_update" />
@@ -26,12 +26,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Build date:"
+            android:text="BiTGApps Release:"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/build_date"
+            android:id="@+id/bitgapps_release"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"

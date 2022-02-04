@@ -203,8 +203,7 @@ class MainActivity : AppCompatActivity() {
                             binding?.apply {
                                 layoutNoGappsUpdate.root.visibility = View.GONE
                                 layoutGappsUpdate.root.visibility = View.VISIBLE
-                                layoutGappsUpdate.buildDate.visibility =
-                                    View.GONE//text = "04022022"
+                                layoutGappsUpdate.bitgappsRelease.text = buildId
                                 layoutGappsUpdate.changelog.text = changelog
 
                                 layoutGappsUpdate.downloadUpdate.setOnClickListener {
