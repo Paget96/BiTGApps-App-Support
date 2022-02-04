@@ -67,7 +67,6 @@ dependencies {
 
     // Kotlin
     implementation "androidx.core:core-ktx:1.7.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Other
     implementation 'com.github.topjohnwu.libsu:core:3.2.0'

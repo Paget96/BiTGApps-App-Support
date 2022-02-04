@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkForUpdate() {
-        if (isBitGappsInstalled)
+        if (!isBitGappsInstalled)
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     var buildId = ""
@@ -201,6 +201,10 @@ class MainActivity : AppCompatActivity() {
                                 layoutGappsUpdate.root.visibility = View.VISIBLE
                                 layoutGappsUpdate.bitgappsRelease.text = utils.splitString(buildId, "=", 1)
                                 layoutGappsUpdate.changelog.text = changelog
+
+                                layoutGappsUpdate.root.setOnClickListener {
+                                    utils.expandCollapseView(constraintInsideScroll, layoutGappsUpdate.showMoreUpdateInfo, null)
+                                }
 
                                 layoutGappsUpdate.downloadUpdate.setOnClickListener {
                                     utils.openLink(

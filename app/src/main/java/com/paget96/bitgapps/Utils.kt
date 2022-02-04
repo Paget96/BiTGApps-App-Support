@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
+import android.transition.TransitionManager
 import android.util.AndroidRuntimeException
 import android.util.TypedValue
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.topjohnwu.superuser.Shell
 import java.io.IOException
 
@@ -197,29 +199,43 @@ class Utils {
         }
     }
 
-    fun expandView(expandedLayout: View, animateArrow: View) {
-        try {
-            animateArrow.animate().rotation(180f).setDuration(500).start()
-        } catch (are: AndroidRuntimeException) {
-            are.printStackTrace()
-        }
+    fun expandView(
+        constraintLayoutHolder: ConstraintLayout,
+        expandedLayout: View,
+        animateArrow: View?
+    ) {
+        TransitionManager.beginDelayedTransition(constraintLayoutHolder)
         expandedLayout.visibility = View.VISIBLE
-    }
-
-    fun collapseView(expandedLayout: View, animateArrow: View) {
         try {
-            animateArrow.animate().rotation(0f).setDuration(500).start()
+            animateArrow?.animate()?.rotation(180f)?.setDuration(500)?.start()
         } catch (are: AndroidRuntimeException) {
             are.printStackTrace()
         }
-        expandedLayout.visibility = View.GONE
     }
 
-    fun expandCollapseView(expandedLayout: View, animateArrow: View) {
+    fun collapseView(
+        constraintLayoutHolder: ConstraintLayout,
+        expandedLayout: View,
+        animateArrow: View?
+    ) {
+        TransitionManager.beginDelayedTransition(constraintLayoutHolder)
+        expandedLayout.visibility = View.GONE
+        try {
+            animateArrow?.animate()?.rotation(0f)?.setDuration(500)?.start()
+        } catch (are: AndroidRuntimeException) {
+            are.printStackTrace()
+        }
+    }
+
+    fun expandCollapseView(
+        constraintLayoutHolder: ConstraintLayout,
+        expandedLayout: View,
+        animateArrow: View?
+    ) {
         if (expandedLayout.isShown) {
-            collapseView(expandedLayout, animateArrow)
+            collapseView(constraintLayoutHolder, expandedLayout, animateArrow)
         } else {
-            expandView(expandedLayout, animateArrow)
+            expandView(constraintLayoutHolder, expandedLayout, animateArrow)
         }
     }
 }
