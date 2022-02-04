@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <attr name="colorActivityBackground" format="reference|color" />
+
+    <!-- Progressbar background -->
+    <attr name="progressbarBackground" format="reference|color" />
+
+    <attr name="infoCircleBackground" format="reference|color" />
+
+    <attr name="iconTint" format="reference|color" />
+
+</resources>

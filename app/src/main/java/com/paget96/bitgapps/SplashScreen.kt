@@ -1,54 +1,50 @@
-package com.paget96.bitgapps;
+package com.paget96.bitgapps
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.color.DynamicColors
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-public class SplashScreen extends AppCompatActivity {
-
-    private void initializeView() {
-        setContentView(R.layout.activity_splash_screen);
+@SuppressLint("CustomSplashScreen")
+class SplashScreen : AppCompatActivity() {
+    private fun initializeView() {
+        setContentView(R.layout.activity_splash_screen)
 
         // Set up a animation and start background work
         // after the animation is finished
-        Animation fadeIn;
-        ImageView logo = findViewById(R.id.logo);
-        fadeIn = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.fade_in);
-        logo.setAnimation(fadeIn);
-
-        fadeIn.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
+        val logo = findViewById<ImageView>(R.id.logo)
+        val fadeIn: Animation = AnimationUtils.loadAnimation(this@SplashScreen, R.anim.fade_in)
+        logo.animation = fadeIn
+        fadeIn.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) {}
+            override fun onAnimationEnd(animation: Animation) {
                 try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.sleep(500)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
                 }
-
-                Intent mainActivity = new Intent(SplashScreen.this, MainActivity.class);
-                startActivity(mainActivity);
-                finish();
+                val mainActivity = Intent(this@SplashScreen, MainActivity::class.java)
+                startActivity(mainActivity)
+                finish()
             }
 
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
+            override fun onAnimationRepeat(animation: Animation) {}
+        })
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initializeView();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Dynamic color changing
+        DynamicColors.applyIfAvailable(this)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+        initializeView()
     }
 }
-

@@ -1,116 +1,246 @@
-package com.paget96.bitgapps;
+package com.paget96.bitgapps
 
-import android.os.Bundle;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.color.DynamicColors
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.paget96.bitgapps.Links.BITGAPPS_APP_RELEASE_CHANGELOG
+import com.paget96.bitgapps.Links.BITGAPPS_APP_RELEASE_PROP
+import com.paget96.bitgapps.Links.BITGAPPS_DOWNLOAD
+import com.paget96.bitgapps.Links.BITGAPPS_GITHUB
+import com.paget96.bitgapps.Links.BITGAPPS_TELEGRAM
+import com.paget96.bitgapps.Links.BITGAPPS_XDA
+import com.paget96.bitgapps.Links.PAGET96_DEV_PROFILE
+import com.paget96.bitgapps.Links.THE_HITMAN_GITHUB
+import com.paget96.bitgapps.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.net.MalformedURLException
+import java.net.URL
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.card.MaterialCardView;
-
-public class MainActivity extends AppCompatActivity {
+class MainActivity : AppCompatActivity() {
 
     // Variables
-    private final Utils utils = new Utils();
-    private TextView gappsInstallState, gappsPackage, platform, sdk, version, buildDate, buildId, developer, appVersion;
-    private MaterialCardView xda, telegram, gitHub;
-    private ImageView expandArrow;
-    private ImageButton about;
-    private MaterialButton getBitGapps;
-    private LinearLayout buttonHolder, moreInfo, theHitman, paget96;
-    private FrameLayout aboutLayout;
-    private MaterialCardView infoCard;
+    private var binding: ActivityMainBinding? = null
+    private val bitGappsPropFile = "/system/etc/g.prop"
+    private val utils = Utils()
+    private val isBitGappsInstalled = utils.fileExists(bitGappsPropFile, false)
 
-    private void initializeViews() {
-        appVersion = findViewById(R.id.app_version);
-        appVersion.setText(String.format("v%s", BuildConfig.VERSION_NAME));
+    private fun viewState() {
+        checkForUpdate()
 
-        aboutLayout = findViewById(R.id.about_gapps);
-        about = findViewById(R.id.about);
-        theHitman = findViewById(R.id.the_hitman);
-        paget96 = findViewById(R.id.paget96);
-        infoCard = findViewById(R.id.info_card);
-        gappsInstallState = findViewById(R.id.gapps_install_state);
-        buttonHolder = findViewById(R.id.button_holder);
-        expandArrow = findViewById(R.id.expand_arrow);
-        moreInfo = findViewById(R.id.more_info);
+        binding?.apply {
+            if (isBitGappsInstalled) {
+                gappsInfo.apply {
+                    root.visibility = View.VISIBLE
 
-        gappsPackage = findViewById(R.id.gapps_package);
-        platform = findViewById(R.id.platform);
-        sdk = findViewById(R.id.sdk);
-        version = findViewById(R.id.version);
-        buildDate = findViewById(R.id.build_date);
-        buildId = findViewById(R.id.build_id);
-        developer = findViewById(R.id.developer);
+                    gappsInfo.gappsPackage.text = utils.splitString(getLineContent(1), "=", 1)
+                    gappsVersion.text = utils.splitString(getLineContent(4), "=", 1)
+                    gappsPlatform.text = utils.splitString(getLineContent(2), "=", 1)
+                    gappsSdk.text = utils.splitString(getLineContent(3), "=", 1)
+                    buildDate.text = utils.splitString(getLineContent(5), "=", 1)
+                    gappsBuildId.text = utils.splitString(getLineContent(6), "=", 1)
+                    developer.text = utils.splitString(getLineContent(7), "=", 1)
+                }
 
-        getBitGapps = findViewById(R.id.get_bitgapps);
-        xda = findViewById(R.id.xda);
-        telegram = findViewById(R.id.telegram);
-        gitHub = findViewById(R.id.github);
-    }
+                gappsNotInstalled.apply {
+                    root.visibility = View.GONE
+                }
+            } else {
+                gappsInfo.apply {
+                    root.visibility = View.GONE
+                }
 
-    private void getText() {
-        if (utils.fileExists("/system/etc/g.prop", false)) {
-            infoCard.setCardBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.installed_bg_color));
-            gappsInstallState.setText("BiTGApps Installed");
-            infoCard.setClickable(true);
-            buttonHolder.setVisibility(View.GONE);
-            expandArrow.setVisibility(View.VISIBLE);
-
-            gappsPackage.setText(utils.splitString(getLineContent(1), "=", 1));
-            version.setText(utils.splitString(getLineContent(4), "=", 1));
-
-            platform.setText(utils.splitString(getLineContent(2), "=", 1));
-            sdk.setText(utils.splitString(getLineContent(3), "=", 1));
-            buildDate.setText(utils.splitString(getLineContent(5), "=", 1));
-            buildId.setText(utils.splitString(getLineContent(6), "=", 1));
-            developer.setText(utils.splitString(getLineContent(7), "=", 1));
-        } else {
-            infoCard.setCardBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.not_installed_bg_color));
-            gappsInstallState.setText("BiTGApps Not Installed");
-            infoCard.setClickable(false);
-            buttonHolder.setVisibility(View.VISIBLE);
-            expandArrow.setVisibility(View.GONE);
-            moreInfo.setVisibility(View.GONE);
+                gappsNotInstalled.apply {
+                    root.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
-    private void onClick() {
-        about.setOnClickListener(v -> aboutLayout.setVisibility(View.VISIBLE));
-        aboutLayout.setOnClickListener(v -> aboutLayout.setVisibility(View.GONE));
-        paget96.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://play.google.com/store/apps/dev?id=6924549437581780390&hl=en"));
-        theHitman.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://github.com/TheHitMan7"));
+    private fun onClick() {
+        binding?.apply {
+            about.setOnClickListener {
+                val dialog = MaterialAlertDialogBuilder(this@MainActivity)
 
-        infoCard.setOnClickListener(v -> utils.expandCollapseView(moreInfo, expandArrow));
-        getBitGapps.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://bitgapps.github.io"));
-        xda.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://forum.xda-developers.com/android/software/custom-bitgapps-android-t4012165"));
-        telegram.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://t.me/bitgapps_official"));
-        gitHub.setOnClickListener(v -> utils.openLink(MainActivity.this, "https://github.com/BiTGApps"));
+                val customAlertDialogView = LayoutInflater.from(this@MainActivity)
+                    .inflate(R.layout.overflow_about_app, null, false)
+
+                dialog.apply {
+                    setCancelable(true)
+                    setView(customAlertDialogView)
+                }
+
+                val appVersion = customAlertDialogView.findViewById<TextView>(R.id.app_version)
+                appVersion.text = String.format("v%s", BuildConfig.VERSION_NAME)
+
+                val paget96 = customAlertDialogView.findViewById<LinearLayout>(R.id.paget96)
+                paget96.setOnClickListener {
+                    utils.openLink(
+                        this@MainActivity,
+                        PAGET96_DEV_PROFILE, true
+                    )
+                }
+
+                val theHitman = customAlertDialogView.findViewById<LinearLayout>(R.id.the_hitman)
+                theHitman.setOnClickListener {
+                    utils.openLink(
+                        this@MainActivity,
+                        THE_HITMAN_GITHUB, true
+                    )
+                }
+
+                dialog.show()
+            }
+
+            gappsNotInstalled.download.setOnClickListener {
+                utils.openLink(
+                    this@MainActivity,
+                    BITGAPPS_DOWNLOAD, true
+                )
+            }
+
+            xda.setOnClickListener {
+                utils.openLink(
+                    this@MainActivity,
+                    BITGAPPS_XDA, true
+                )
+            }
+
+            telegram.setOnClickListener {
+                utils.openLink(
+                    this@MainActivity,
+                    BITGAPPS_TELEGRAM, true
+                )
+            }
+
+            github.setOnClickListener {
+                utils.openLink(
+                    this@MainActivity,
+                    BITGAPPS_GITHUB, true
+                )
+            }
+        }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        initializeViews();
-        onClick();
-        getText();
+        // Dynamic color changing
+        DynamicColors.applyIfAvailable(this)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        onClick()
+        viewState()
+
+        setContentView(binding?.root)
     }
 
-    public String getLineContent(int line) {
-        return utils.runCommand("cat /system/etc/g.prop | sed -n " + line + "p", false);
+    private fun getLineContent(line: Int): String {
+        return utils.runCommand("cat " + bitGappsPropFile + " | sed -n " + line + "p", false)
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        utils.closeShell();
+    private fun checkForUpdate() {
+        if (isBitGappsInstalled)
+            lifecycleScope.launch(Dispatchers.IO) {
+                try {
+                    var buildId = ""
+                    val buildIdFileUrl = URL(BITGAPPS_APP_RELEASE_PROP)
+                    val buildIdBufferReader =
+                        BufferedReader(InputStreamReader(buildIdFileUrl.openStream()))
+                    var buildIdStringBuffer: String?
+                    while (buildIdBufferReader.readLine()
+                            .also { buildIdStringBuffer = it } != null
+                    ) {
+                        buildId += buildIdStringBuffer
+                    }
+                    buildIdBufferReader.close()
+
+                    var changelog: String? = ""
+                    val changelogFileUrl = URL(BITGAPPS_APP_RELEASE_CHANGELOG)
+                    val changelogBufferReader =
+                        BufferedReader(InputStreamReader(changelogFileUrl.openStream()))
+                    var changelogStringBuffer: String?
+                    while (changelogBufferReader.readLine()
+                            .also { changelogStringBuffer = it } != null
+                    ) {
+                        changelog += changelogStringBuffer + "\n"
+                    }
+                    changelogBufferReader.close()
+
+                    withContext(Dispatchers.Main) {
+                        if (utils.splitString(
+                                buildId,
+                                "=",
+                                1
+                            ) != utils.splitString(getLineContent(6), "=", 1)
+                        ) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Update available! " + utils.splitString(
+                                    buildId,
+                                    "=",
+                                    1
+                                ) + " " + utils.splitString(getLineContent(6), "=", 1),
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+
+                            binding?.apply {
+                                layoutNoGappsUpdate.root.visibility = View.GONE
+                                layoutGappsUpdate.root.visibility = View.VISIBLE
+                                layoutGappsUpdate.buildDate.visibility =
+                                    View.GONE//text = "04022022"
+                                layoutGappsUpdate.changelog.text = changelog
+
+                                layoutGappsUpdate.downloadUpdate.setOnClickListener {
+                                    utils.openLink(
+                                        this@MainActivity,
+                                        BITGAPPS_DOWNLOAD, true
+                                    )
+                                }
+                            }
+                        } else {
+                            binding?.apply {
+                                layoutGappsUpdate.root.visibility = View.GONE
+                                layoutNoGappsUpdate.root.visibility = View.VISIBLE
+
+                                layoutNoGappsUpdate.checkForUpdate.setOnClickListener {
+                                    checkForUpdate()
+                                }
+                            }
+                        }
+
+                    }
+                } catch (e: MalformedURLException) {
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkForUpdate()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        utils.closeShell()
     }
 }

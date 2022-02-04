@@ -1,67 +1,80 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="materialCardViewStyle">@style/MaterialCard.Light</item>
-        <item name="materialButtonStyle">@style/MaterialButton.Light</item>
-        <item name="android:windowBackground">@color/background_color</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/background_color</item>
-        <item name="android:windowLightStatusBar">true</item>
+    <style name="OverflowMenu" parent="@style/Widget.Material3.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/overflow_menu_background</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="MaterialCard.Light" parent="@style/Widget.MaterialComponents.CardView">
-        <item name="cardElevation">0dp</item>
-        <item name="cardCornerRadius">16dp</item>
-        <item name="strokeColor">@color/card_border</item>
+    <style name="MaterialCard.Default" parent="@style/Widget.Material3.CardView.Filled">
+        <item name="cardCornerRadius">24dp</item>
+        <!--<item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/light_card_border</item>
         <item name="strokeWidth">1dp</item>
-        <item name="cardBackgroundColor">@color/background_color</item>
+        <item name="cardBackgroundColor">?colorCardBackground</item>-->
     </style>
 
-    <style name="MaterialButton.Light" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="shapeAppearanceOverlay">@style/MaterialButtonRoundCorners</item>
+    <!--Toolbar light-->
+    <style name="MaterialToolbar.Default" parent="@style/Widget.Material3.Toolbar.Surface" />
+
+    <style name="OverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">?colorPrimary</item>
     </style>
 
-    <style name="MaterialButtonRoundCorners">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeTopLeft">32dp</item>
-        <item name="cornerSizeBottomLeft">32dp</item>
-        <item name="cornerSizeTopRight">32dp</item>
-        <item name="cornerSizeBottomRight">32dp</item>
+    <!-- Bottom navigation view -->
+    <style name="BottomNavigationView.Default" parent="@style/Widget.Material3.BottomNavigationView">
+        <item name="android:background">?colorActivityBackground</item>
+    </style>
+
+    <style name="BottomSheetModalStyle" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">?strokeColor</item>
+    </style>
+
+    <style name="ListViewContent">
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
     </style>
 
     <style name="DividerText">
-        <item name="android:textColor">?colorPrimary</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingTop">12dp</item>
         <item name="android:paddingBottom">10dp</item>
     </style>
 
-    <style name="SummaryText">
+    <style name="TitleText">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="PrimaryText" parent="@style/CardView.Content">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingTop">6dp</item>
+    </style>
+
+    <style name="SecondaryText">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingTop">6dp</item>
+    </style>
+
+    <style name="SummaryText" parent="CardView.Content">
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="AppTheme.Transparent" parent="@style/AppTheme.NoActionBar">
-        <item name="android:statusBarColor">@color/semitrans</item>
+    <style name="CardView.Holder">
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
     </style>
 
-    <!-- Divider/separator -->
-    <style name="Divider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">?android:attr/listDivider</item>
+    <style name="CardView.Content">
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:paddingRight">6dp</item>
     </style>
-
 </resources>

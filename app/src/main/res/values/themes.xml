@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.Light" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@drawable/activity_light_gradient_background</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">default</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+
+        <item name="dialogCornerRadius">24dp</item>
+
+        <item name="toolbarStyle">@style/MaterialToolbar.Default</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
+
+        <!--<item name="android:navigationBarColor">@color/light_background_color</item>-->
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
+
+    <style name="Base.Theme.Dark" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@drawable/activity_dark_gradient_background</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="27">default</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+
+        <item name="dialogCornerRadius">24dp</item>
+
+        <item name="toolbarStyle">@style/MaterialToolbar.Default</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
+
+        <!--<item name="android:navigationBarColor">@color/dark_background_color</item>-->
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
+    </style>
+
+    <style name="Theme.Light" parent="Base.Theme.Light" />
+
+    <style name="Theme.Dark" parent="Base.Theme.Dark" />
+</resources>
