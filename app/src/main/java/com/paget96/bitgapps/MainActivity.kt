@@ -191,12 +191,8 @@ class MainActivity : AppCompatActivity() {
                         ) {
                             Toast.makeText(
                                 this@MainActivity,
-                                "Update available! " + utils.splitString(
-                                    buildId,
-                                    "=",
-                                    1
-                                ) + " " + utils.splitString(getLineContent(6), "=", 1),
-                                Toast.LENGTH_LONG
+                                "Update Available!",
+                                Toast.LENGTH_SHORT
                             )
                                 .show()
 
