@@ -114,6 +114,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:background="@drawable/rounded_corners_background_24dp"
+            android:backgroundTint="?colorSurfaceVariant"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -146,6 +152,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:background="@drawable/rounded_corners_background_24dp"
+            android:backgroundTint="?colorSurfaceVariant"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -178,6 +190,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:background="@drawable/rounded_corners_background_24dp"
+            android:backgroundTint="?colorSurfaceVariant"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -191,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Build date"
+                android:text="Build Date"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
@@ -210,6 +228,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
+            android:background="@drawable/rounded_corners_background_24dp"
+            android:backgroundTint="?colorSurfaceVariant"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal">
 
